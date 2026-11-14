@@ -1,0 +1,12 @@
+.DS_Store
+.build/
+.swiftpm/
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
+.idea/
+*.mov
+*.m4a
+*.webm
+Resources/AppIcon.iconset/
+.superpowers/

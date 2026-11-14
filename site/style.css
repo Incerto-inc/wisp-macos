@@ -1,0 +1,454 @@
+/* Wisp website. Ash & Ink, the app's own palette: warm greys, and vermilion only where
+   something is being recorded. No web fonts and nothing from other servers. */
+
+:root {
+  color-scheme: light dark;
+  --page: #e6e3dd;
+  --raised: #efede9;
+  --ink: #22211f;
+  --ink-2: #5d5953;
+  --ink-3: #8a857e;
+  --hair: rgba(34, 33, 31, 0.12);
+  --fill: rgba(34, 33, 31, 0.055);
+  --rec: #c23d20;
+  --button: #22211f;
+  --button-ink: #efede9;
+
+  /* The illustrated desktop */
+  --desk: #d3cfc8;
+  --menubar: rgba(239, 237, 233, 0.72);
+  --win: #f4f2ee;
+  --win-bar: #e4e1db;
+  --win-ink: rgba(34, 33, 31, 0.13);
+  --win-ink-2: rgba(34, 33, 31, 0.22);
+  --shadow: rgba(34, 33, 31, 0.18);
+
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", system-ui, sans-serif;
+  --mono: ui-monospace, "SF Mono", Menlo, monospace;
+  --measure: 34rem;
+  --label: 11rem;
+  --gutter: clamp(1.25rem, 5vw, 3rem);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --page: #161514;
+    --raised: #1e1d1b;
+    --ink: #dedbd4;
+    --ink-2: #a19d96;
+    --ink-3: #6f6b65;
+    --hair: rgba(222, 219, 212, 0.1);
+    --fill: rgba(222, 219, 212, 0.05);
+    --rec: #f0603f;
+    --button: #dedbd4;
+    --button-ink: #1e1d1b;
+
+    --desk: #252422;
+    --menubar: rgba(30, 29, 27, 0.8);
+    --win: #2d2c29;
+    --win-bar: #363431;
+    --win-ink: rgba(222, 219, 212, 0.1);
+    --win-ink-2: rgba(222, 219, 212, 0.18);
+    --shadow: rgba(0, 0, 0, 0.45);
+  }
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:lang(ja) body,
+body:lang(ja) {
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans JP", system-ui, sans-serif;
+  line-height: 1.8;
+  font-feature-settings: "palt" 1;
+}
+
+a { color: inherit; text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+
+img { max-width: 100%; height: auto; display: block; }
+code, kbd, pre { font-family: var(--mono); font-size: 0.9em; }
+
+.wrap {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* Header */
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 640;
+  font-size: 1.125rem;
+  text-decoration: none;
+}
+.brand img { width: 30px; height: 30px; border-radius: 7px; }
+
+.site-nav { display: flex; gap: 1.5rem; font-size: 0.95rem; }
+.site-nav a { text-decoration: none; color: var(--ink-2); }
+.site-nav a:hover { color: var(--ink); }
+
+/* Hero */
+
+.hero { padding-top: clamp(2.5rem, 8vw, 6rem); }
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 4.9rem);
+  text-wrap: balance;
+  line-height: 0.98;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+:lang(ja) .hero h1 { max-width: 13em; line-height: 1.12; letter-spacing: -0.02em; font-size: clamp(2.2rem, 5.4vw, 4.4rem); }
+
+.lede {
+  max-width: var(--measure);
+  margin: 1.75rem 0 0;
+  font-size: 1.1875rem;
+  color: var(--ink-2);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.8rem 1.35rem;
+  border-radius: 999px;
+  background: var(--button);
+  color: var(--button-ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+.button:hover { opacity: 0.88; }
+
+/* The illustrated desktop and the three tracks: the page's one moving moment. */
+
+.recording {
+  margin-top: clamp(3rem, 7vw, 4.5rem);
+}
+
+.stage {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--desk);
+}
+.stage svg { display: block; width: 100%; height: auto; }
+
+.d-menubar { fill: var(--menubar); }
+.d-menu { fill: var(--win-ink-2); }
+.d-shadow { fill: var(--shadow); filter: blur(18px); }
+.d-win { fill: var(--win); }
+.d-bar { fill: var(--win-bar); }
+.d-ink { fill: var(--win-ink); }
+.d-ink-2 { fill: var(--win-ink-2); }
+.d-glyph { fill: var(--ink); }
+.d-time { fill: var(--ink); font: 600 15px var(--sans); font-variant-numeric: tabular-nums; }
+.d-rec { fill: var(--rec); }
+
+.frame {
+  fill: none;
+  stroke: var(--rec);
+  stroke-width: 3;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.tracks {
+  position: relative;
+  margin-top: 1rem;
+  padding: 1.1rem 1.25rem 0.9rem;
+  border-radius: 20px;
+  background: var(--raised);
+}
+
+.track {
+  display: grid;
+  grid-template-columns: var(--label) 1fr;
+  align-items: center;
+  gap: 1rem;
+  height: 3rem;
+}
+.track-name { display: flex; flex-direction: column; line-height: 1.25; }
+.track-name code { font-size: 0.85rem; }
+.track-name span { color: var(--ink-3); font-size: 0.85rem; }
+:lang(ja) .track-name span { line-height: 1.4; }
+
+.lane { position: relative; height: 2.25rem; }
+.lane svg { position: absolute; inset: 0; width: 100%; height: 100%; clip-path: inset(0 0 0 0); }
+.w-bar { fill: var(--ink-2); }
+.w-quiet { fill: var(--ink-3); opacity: 0.6; }
+.f-frame { fill: var(--win-bar); }
+.f-tile-1 { fill: #4a6556; }
+.f-tile-2 { fill: #66574a; }
+.f-tile-3 { fill: #4a566a; }
+.f-tile-4 { fill: #574b6a; }
+
+.ruler {
+  display: grid;
+  grid-template-columns: var(--label) 1fr;
+  gap: 1rem;
+  margin-top: 0.35rem;
+  color: var(--ink-3);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+.ruler div { display: flex; justify-content: space-between; }
+
+.playhead {
+  position: absolute;
+  top: 0.8rem;
+  bottom: 2.2rem;
+  left: calc(1.25rem + var(--label) + 1rem);
+  width: 2px;
+  margin-left: -1px;
+  background: var(--rec);
+  border-radius: 2px;
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .frame { stroke-dashoffset: 1; animation: draw 1s cubic-bezier(0.65, 0, 0.35, 1) 0.35s forwards; }
+  .d-rec, .d-time { opacity: 0; animation: appear 0.3s ease-out 1.15s forwards; }
+  .lane svg { clip-path: inset(0 100% 0 0); animation: reveal 2.8s cubic-bezier(0.25, 0.1, 0.25, 1) 1.3s forwards; }
+  .playhead { animation: play 2.8s cubic-bezier(0.25, 0.1, 0.25, 1) 1.3s forwards; }
+}
+
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes appear { to { opacity: 1; } }
+@keyframes reveal { to { clip-path: inset(0 0 0 0); } }
+@keyframes play {
+  0% { opacity: 1; left: calc(1.25rem + var(--label) + 1rem); }
+  94% { opacity: 1; }
+  100% { opacity: 0; left: calc(100% - 1.25rem); }
+}
+
+/* Sections */
+
+.section { padding-top: clamp(5rem, 11vw, 8.5rem); }
+
+.section h2 {
+  margin: 0;
+  max-width: 22ch;
+  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
+  line-height: 1.1;
+  font-weight: 630;
+  letter-spacing: -0.022em;
+}
+:lang(ja) .section h2 { line-height: 1.3; letter-spacing: 0; }
+
+.section > p,
+.prose p {
+  max-width: var(--measure);
+  color: var(--ink-2);
+}
+
+/* How a recording goes: the panel's three states, in order. */
+
+.tour {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  margin: 3rem 0 0;
+  padding: 0;
+  counter-reset: step;
+}
+.tour li { counter-increment: step; }
+.tour img {
+  width: 100%;
+  max-width: 330px;
+  margin-top: 1.75rem;
+  filter: drop-shadow(0 18px 30px var(--shadow));
+}
+.tour p { max-width: 22rem; }
+.tour h3 {
+  margin: 0 0 0.35rem;
+  font-size: 1.125rem;
+  font-weight: 620;
+}
+.tour h3::before {
+  content: counter(step);
+  display: inline-grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  margin-right: 0.6rem;
+  border-radius: 50%;
+  background: var(--fill);
+  color: var(--ink-2);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+.tour p { margin: 0; color: var(--ink-2); }
+
+/* Three files, one timeline */
+
+.files {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.listing {
+  margin: 0.5rem 0 0;
+  padding: 1.5rem 1.6rem;
+  border-radius: 16px;
+  background: var(--raised);
+}
+.listing .path { color: var(--ink-3); font-family: var(--mono); font-size: 0.85rem; margin: 0 0 1rem; }
+.listing dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 0.85rem 1.5rem; }
+.listing dt { font-family: var(--mono); font-size: 0.9rem; padding-left: 1.25rem; }
+.listing dd { margin: 0; color: var(--ink-2); }
+
+/* Details */
+
+.details {
+  display: grid;
+  grid-template-columns: minmax(12rem, 18rem) minmax(0, var(--measure));
+  gap: 1.9rem clamp(2rem, 5vw, 4rem);
+  margin: 3rem 0 0;
+}
+.details dt { font-weight: 620; }
+.details dd { margin: 0; color: var(--ink-2); }
+
+/* Privacy */
+
+.privacy .band {
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 5vw, 4.5rem);
+  border-radius: 24px;
+  background: var(--raised);
+}
+.privacy h2 { font-size: clamp(2rem, 4.4vw, 3.4rem); max-width: 22ch; }
+.privacy p { max-width: var(--measure); color: var(--ink-2); }
+.privacy .aside { color: var(--ink-3); font-size: 0.95rem; margin-bottom: 0; }
+
+/* Install: a real sequence, so it is numbered. */
+
+.steps {
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+  max-width: 44rem;
+}
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2.75rem;
+  margin-bottom: 2rem;
+}
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: var(--fill);
+  color: var(--ink-2);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+.steps h3 { margin: 0 0 0.4rem; font-size: 1.0625rem; font-weight: 620; }
+.steps p { margin: 0.5rem 0 0; color: var(--ink-2); }
+.steps pre {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  background: var(--raised);
+  overflow-x: auto;
+  line-height: 1.5;
+}
+
+/* Footer */
+
+.site-footer {
+  margin-top: clamp(5rem, 11vw, 8rem);
+  padding-top: 2rem;
+  padding-bottom: 3rem;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  color: var(--ink-3);
+  font-size: 0.9rem;
+}
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+.site-footer a { text-decoration: none; }
+.site-footer a:hover { color: var(--ink); text-decoration: underline; }
+
+/* Narrow screens */
+
+@media (max-width: 860px) {
+  .tour { grid-template-columns: 1fr; gap: 3.5rem; }
+  .tour img { max-width: 300px; }
+  .files { grid-template-columns: 1fr; }
+  .details { grid-template-columns: 1fr; gap: 0.4rem; }
+  .details dd { margin-bottom: 1.4rem; }
+}
+
+@media (max-width: 560px) {
+  :root { --label: 6.5rem; }
+  .site-nav { gap: 1rem; }
+  .listing dl { grid-template-columns: 1fr; gap: 0.2rem; }
+  .listing dd { margin-bottom: 0.75rem; padding-left: 1.25rem; }
+}
+
+/* Japanese headings break by character width, not by the Latin "ch". */
+:lang(ja) .section h2 { max-width: 20em; }
+
+/* Incerto, the maker */
+.brand .by { margin-left: 0.15rem; color: var(--ink-3); font-weight: 450; font-size: 0.9rem; }
+.maker { display: flex; gap: 0.9rem; align-items: flex-start; max-width: 34rem; }
+.maker p { margin: 0; }
+.maker-mark { flex: none; color: var(--ink-2); }
+.incerto-mark { display: block; width: 34px; height: auto; }
+
+/* The footer rule spans the content, not the page gutters. */
+.site-footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: var(--gutter);
+  right: var(--gutter);
+  border-top: 1px solid var(--hair);
+}

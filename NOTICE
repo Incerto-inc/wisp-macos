@@ -1,0 +1,10 @@
+Wisp
+Copyright 2026 Incerto
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The Incerto name, the Incerto swan mark and the Wisp app icon are Incerto's trademarks and
+artwork. They are not licensed under the Apache License: the files under Resources/brand/,
+Resources/tray/, the Resources/AppIcon* files, site/images/icon-*.png and
+site/apple-touch-icon.png may not be reused outside this project. A fork must use its own
+name and icon.

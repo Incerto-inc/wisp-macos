@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    continue-on-error: ${{ matrix.preview }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Package.swift needs Swift 6 (Xcode 16); 16.4 is the last 16.x release.
+          - name: Xcode 16.4 (oldest supported)
+            runner: macos-15
+            xcode: "16.4"
+            preview: false
+          - name: Xcode 26.6 (current stable)
+            runner: macos-26
+            xcode: "26.6"
+            preview: false
+          # Preview image; a failure here does not fail the workflow.
+          - name: Xcode 27 (preview image)
+            runner: xcode-27
+            xcode: ""
+            preview: true
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Select Xcode
+        if: matrix.xcode != ''
+        run: sudo xcode-select --switch "/Applications/Xcode_${{ matrix.xcode }}.app"
+
+      - name: Show toolchain
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Build
+        run: swift build
+
+      # Unit tests only: they use fakes and temporary folders, and need no permissions or display.
+      - name: Test
+        run: swift test
+
+      # The runner has no signing certificate, so this is an ad-hoc build; nothing is installed.
+      - name: Package
+        run: |
+          WISP_SKIP_APPLICATIONS_INSTALL=1 ./Scripts/package-app.sh
+          codesign --verify --strict --verbose=2 .build/Wisp.app
+          plutil -lint .build/Wisp.app/Contents/Info.plist
